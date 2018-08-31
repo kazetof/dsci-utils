@@ -8,7 +8,7 @@ Python 3.6+.
 ## Plot
 ### histgram
 
-```
+```python
 import numpy as np
 import pandas as pd
 
@@ -26,9 +26,36 @@ savepath = "./output"
 plot.histgram.s_plot(df, colnames=colnames, savepath=savepath)
 ```
 
+### scatter
+
+```python
+# df.head(2)
+#           x         y
+# 0 -0.466440  1.727682
+# 1  0.304809  1.378079
+
+plot.scatter.plot(df, "x", "y")
+
+savename = "./output/scatter_example.png"
+plot.scatter.plot(df, "x", "y", savename=savename)
+```
+
+### pairplot (seaborn)
+
+```python
+# df.head(2)
+#           A         B         C       D
+# 0  0.129275  0.775375 -0.819235  class1
+# 1 -0.587624 -6.162496 -0.032990  class2
+
+colnames = ["A", "B", "C"]
+savename = "./output/pairplot_example.png"
+plot.pairplot.plot(df, colnames, classes="D", savename=savename)
+```
+
 ## Hyper Parameter Holder
 
-```
+```python
 hpholder = MyHPHolder() # see examples
 
 hpholder.alpha = 10.
@@ -46,7 +73,7 @@ hpholder.preprocess
 
 ## Logger
 
-```
+```python
 from dsutils.utils.logger import Logger
 
 columns = ["step", "obj_val", "val"]
@@ -63,3 +90,28 @@ logger.append(new_row)
 ```
 
 ## Status Logger
+
+```python
+from dsutils.utils import status_logger as sl
+
+STATUSDICT = {}
+STATUSDICT[0] = "contain nan"
+STATUSDICT[1] = "not conversion"
+STATUSDICT[2] = "It seems outlier"
+
+status_logger = sl.StatusListLogger(STATUSDICT)
+new_row = status_logger.get_new_row()
+new_row.append(1)
+status_logger.append(new_row)
+
+new_row = status_logger.get_new_row()
+new_row.append(0)
+new_row.append(2)
+status_logger.append(new_row)
+
+status_df = status_logger.get_status_df()
+
+#    0  1  2
+# 0  0  1  0
+# 1  1  0  1
+```
