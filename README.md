@@ -4,6 +4,13 @@ dsci-utils is a collection of helper functions whcih makes it easier to do data 
 # Dependencies
 Python 3.6+.
 
+```
+numpy == 1.15.1
+pandas == 0.23.4
+seaborn == 0.9.0
+matplotlib == 2.2.3
+```
+
 # USAGE
 ## Plot
 ### histgram
